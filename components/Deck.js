@@ -10,12 +10,20 @@ class Deck extends Component {
       <View style={styles.container}>
         <Text style={styles.titleText}>{deck.title}</Text>
         <Text style={styles.smallText}>{deck.questions.length} cards</Text>
-        <TouchableOpacity
-          onPress={() => navigation.navigate("Quiz", { id })}
-          style={styles.button}
-        >
-          <Text style={styles.buttonText}>Start Quiz</Text>
-        </TouchableOpacity>
+        {deck.questions.length === 0 && (
+          <Text style={styles.instructionText}>
+            Please add a card to start quiz.
+          </Text>
+        )}
+        {deck.questions.length > 0 && (
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Quiz", { id })}
+            style={styles.button}
+          >
+            <Text style={styles.buttonText}>Start Quiz</Text>
+          </TouchableOpacity>
+        )}
+
         <TouchableOpacity
           onPress={() => navigation.navigate("CardAdd", { id })}
           style={[styles.button, styles.buttonDark]}
@@ -40,6 +48,10 @@ const styles = StyleSheet.create({
   },
   smallText: {
     fontSize: 12,
+    marginBottom: 30
+  },
+  instructionText: {
+    fontSize: 15,
     marginBottom: 30
   },
   button: {
